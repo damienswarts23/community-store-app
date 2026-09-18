@@ -10,9 +10,6 @@ export type Payment = {
   created_at: string;
 };
 
-// NOTE: payment rows are written by service_role only (see RLS policy) --
-// there is no real payment provider wired up yet. This service is read-only
-// from the client, for displaying whatever status a backend/webhook has set.
 export const paymentService = {
   async getByOrderId(orderId: string): Promise<Payment | null> {
     const { data, error } = await supabase

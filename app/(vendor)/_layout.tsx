@@ -56,8 +56,9 @@ export default function VendorLayout() {
           ),
         }}
       />
-      {/* pushed screen, not a tab */}
+      {/* pushed screens, not tabs — hide from the tab bar */}
       <Tabs.Screen name="items/[id]" options={{ href: null }} />
+      <Tabs.Screen name="items/new" options={{ href: null }} />
     </Tabs>
   );
 }

@@ -1,10 +1,10 @@
 import type { Session } from "@supabase/supabase-js";
 import {
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-    type ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
 } from "react";
 import { supabase } from "../lib/supabase";
 
@@ -49,11 +49,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  // Role is read from the metadata set at signUp() (the same field
-  // handle_new_user() reads on the database side). It only decides which
-  // screens the app shows — actual data access is enforced by RLS against
-  // the real student/faculty_member/vendor rows, so a mismatched or
-  // tampered metadata value can misroute the UI but can't grant access.
   const role = (session?.user.user_metadata?.role as UserRole) ?? null;
 
   const signIn: AuthContextValue["signIn"] = async (email, password) => {

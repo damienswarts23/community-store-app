@@ -1,3 +1,4 @@
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { postService } from "@/src/services/postService";
 import { colors } from "@/src/theme/colors";
@@ -5,15 +6,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
-    ActivityIndicator,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -47,14 +47,15 @@ export default function CreatePostScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={22} color={colors.white} />
-        </Pressable>
-        <Text style={styles.headerTitle}>New Post</Text>
-        <View style={{ width: 22 }} />
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="New Post"
+        left={
+          <Pressable onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
+          </Pressable>
+        }
+      />
 
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -105,15 +106,6 @@ export default function CreatePostScreen() {
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.white },
-  header: {
-    backgroundColor: colors.teal,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-  },
-  headerTitle: { color: colors.white, fontSize: 16, fontWeight: "700" },
   content: { padding: 20 },
   label: {
     fontSize: 12,

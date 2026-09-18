@@ -1,3 +1,4 @@
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { useCart } from "@/src/hooks/useCart";
 import { orderService, type PaymentMethod } from "@/src/services/orderService";
@@ -91,14 +92,18 @@ export default function CheckoutScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={22} color={colors.white} />
-        </Pressable>
-        <Text style={styles.headerTitle}>Checkout</Text>
-        <Ionicons name="lock-closed-outline" size={18} color={colors.white} />
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Checkout"
+        left={
+          <Pressable onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
+          </Pressable>
+        }
+        right={
+          <Ionicons name="lock-closed-outline" size={18} color={colors.white} />
+        }
+      />
 
       <KeyboardAvoidingView
         style={{ flex: 1 }}

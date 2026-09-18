@@ -1,3 +1,4 @@
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { supabase } from "@/src/lib/supabase";
 import { colors } from "@/src/theme/colors";
@@ -5,14 +6,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -137,10 +138,8 @@ export default function FacultyProfileScreen() {
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Profile</Text>
-        </View>
+      <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+        <ScreenHeader title="Profile" />
         <View style={styles.loadingContainer}>
           <ActivityIndicator color={colors.teal} />
         </View>
@@ -149,19 +148,21 @@ export default function FacultyProfileScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Profile</Text>
-        {!editing ? (
-          <Pressable onPress={() => setEditing(true)} hitSlop={8}>
-            <Ionicons name="create-outline" size={22} color={colors.white} />
-          </Pressable>
-        ) : (
-          <Pressable onPress={handleCancel}>
-            <Text style={styles.cancelText}>CANCEL</Text>
-          </Pressable>
-        )}
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Profile"
+        right={
+          !editing ? (
+            <Pressable onPress={() => setEditing(true)} hitSlop={8}>
+              <Ionicons name="create-outline" size={22} color={colors.white} />
+            </Pressable>
+          ) : (
+            <Pressable onPress={handleCancel}>
+              <Text style={styles.cancelText}>CANCEL</Text>
+            </Pressable>
+          )
+        }
+      />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -302,15 +303,6 @@ export default function FacultyProfileScreen() {
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.white },
-  header: {
-    backgroundColor: colors.teal,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
-  headerTitle: { color: colors.white, fontSize: 18, fontWeight: "700" },
   cancelText: {
     color: colors.white,
     fontSize: 11,

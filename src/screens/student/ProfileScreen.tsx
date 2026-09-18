@@ -1,3 +1,4 @@
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { supabase } from "@/src/lib/supabase";
 import { colors } from "@/src/theme/colors";
@@ -5,14 +6,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -157,20 +158,21 @@ export default function ProfileScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Profile</Text>
-        {!editing ? (
-          <Pressable onPress={() => setEditing(true)} hitSlop={8}>
-            <Ionicons name="create-outline" size={22} color={colors.white} />
-          </Pressable>
-        ) : (
-          <Pressable onPress={handleCancel}>
-            <Text style={styles.cancelText}>CANCEL</Text>
-          </Pressable>
-        )}
-      </View>
-
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Profile"
+        right={
+          !editing ? (
+            <Pressable onPress={() => setEditing(true)} hitSlop={8}>
+              <Ionicons name="create-outline" size={22} color={colors.white} />
+            </Pressable>
+          ) : (
+            <Pressable onPress={handleCancel}>
+              <Text style={styles.cancelText}>CANCEL</Text>
+            </Pressable>
+          )
+        }
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}

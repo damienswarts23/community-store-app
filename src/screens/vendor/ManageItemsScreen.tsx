@@ -1,4 +1,5 @@
 import EmptyState from "@/src/components/EmptyState";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { itemService, type ItemWithRating } from "@/src/services/itemService";
 import { colors } from "@/src/theme/colors";
@@ -6,16 +7,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    Image,
-    Pressable,
-    RefreshControl,
-    ScrollView,
-    StyleSheet,
-    Switch,
-    Text,
-    View,
+  ActivityIndicator,
+  Alert,
+  Image,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -131,21 +132,15 @@ export default function ManageItemsScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()} hitSlop={8}>
-          <Ionicons name="arrow-back" size={22} color={colors.white} />
-        </Pressable>
-
-        <Text style={styles.headerTitle}>Manage Items</Text>
-
-        <Pressable
-          onPress={() => router.push("/(vendor)/items/new")}
-          hitSlop={8}
-        >
-          <Ionicons name="add" size={25} color={colors.white} />
-        </Pressable>
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Manage Items"
+        left={
+          <Pressable onPress={() => router.back()} hitSlop={8}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
+          </Pressable>
+        }
+      />
 
       <ScrollView
         contentContainerStyle={styles.content}

@@ -1,4 +1,5 @@
 import EmptyState from "@/src/components/EmptyState";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { useNotifications } from "@/src/hooks/useNotifications";
 import { colors } from "@/src/theme/colors";
@@ -6,12 +7,12 @@ import { formatRelativeTime } from "@/src/utils/formatRelativeTime";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {
-    ActivityIndicator,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -28,20 +29,24 @@ export default function NotificationsScreen() {
   } = useNotifications(session?.user?.id);
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={22} color={colors.white} />
-        </Pressable>
-        <Text style={styles.headerTitle}>Notifications</Text>
-        {unreadCount > 0 ? (
-          <Pressable onPress={markAllRead}>
-            <Text style={styles.markAllText}>MARK ALL READ</Text>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Notifications"
+        left={
+          <Pressable onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
           </Pressable>
-        ) : (
-          <View style={{ width: 22 }} />
-        )}
-      </View>
+        }
+        right={
+          unreadCount > 0 ? (
+            <Pressable onPress={markAllRead}>
+              <Text style={styles.markAllText}>MARK ALL READ</Text>
+            </Pressable>
+          ) : (
+            <View style={{ width: 22 }} />
+          )
+        }
+      />
 
       {loading && notifications.length === 0 ? (
         <ActivityIndicator style={{ marginTop: 32 }} color={colors.teal} />

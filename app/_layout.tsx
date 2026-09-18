@@ -9,7 +9,7 @@ export default function RootLayout() {
     <AuthProvider>
       <CartProvider>
         <StatusBar
-          style="light"
+          style="dark"
           backgroundColor={colors.teal}
           translucent={false}
         />

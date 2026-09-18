@@ -1,21 +1,19 @@
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
-import {
-    itemService,
-    type ItemCategory
-} from "@/src/services/itemService";
+import { itemService, type ItemCategory } from "@/src/services/itemService";
 import { colors } from "@/src/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -163,18 +161,15 @@ export default function ItemFormScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()} hitSlop={8}>
-          <Ionicons name="arrow-back" size={22} color={colors.white} />
-        </Pressable>
-
-        <Text style={styles.headerTitle}>
-          {editing ? "Edit Item" : "Add Item"}
-        </Text>
-
-        <View style={{ width: 22 }} />
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title={editing ? "Edit Item" : "Add Item"}
+        left={
+          <Pressable onPress={() => router.back()} hitSlop={8}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
+          </Pressable>
+        }
+      />
 
       <ScrollView
         contentContainerStyle={styles.content}

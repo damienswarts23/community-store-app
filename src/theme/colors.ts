@@ -1,5 +1,3 @@
-// Shared design tokens. Import these instead of hardcoding hex values in
-// new screens, so color changes happen in one place.
 export const colors = {
   teal: "#0A5C74",
   tealLight: "#EAF3F5",

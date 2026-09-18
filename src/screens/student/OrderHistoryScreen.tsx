@@ -1,5 +1,6 @@
 import EmptyState from "@/src/components/EmptyState";
 import OrderStatusBadge from "@/src/components/OrderStatusBadge";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { orderService, type OrderWithItems } from "@/src/services/orderService";
 import { colors } from "@/src/theme/colors";
@@ -38,10 +39,8 @@ export default function OrderHistoryScreen() {
   }, [load]);
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Order History</Text>
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader title="Order History" />
 
       {loading && orders.length === 0 ? (
         <ActivityIndicator style={{ marginTop: 32 }} color={colors.teal} />

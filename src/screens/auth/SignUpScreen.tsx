@@ -66,7 +66,6 @@ export default function SignUpScreen() {
       setError(signUpError);
       return;
     }
-    // Supabase requires email confirmation by default — send them to check inbox
     router.replace({ pathname: "/(auth)/verify-email", params: { email } });
   };
 
@@ -80,7 +79,7 @@ export default function SignUpScreen() {
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.title}>Community Store</Text>
+          <Text style={styles.title}>Campus Connect</Text>
           <Text style={styles.subtitle}>
             Your academic marketplace for shared resources and community
             exchange.
@@ -147,7 +146,7 @@ export default function SignUpScreen() {
           <ThemedTextInput
             icon="mail-outline"
             style={styles.inputSpacing}
-            placeholder="student@mycput.ac.za"
+            placeholder="email@mycput.ac.za"
             keyboardType="email-address"
             onChangeText={setEmail}
             value={email}

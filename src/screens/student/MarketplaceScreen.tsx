@@ -1,5 +1,6 @@
 import EmptyState from "@/src/components/EmptyState";
 import ItemCard from "@/src/components/ItemCard";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useItems } from "@/src/hooks/useItems";
 import type { ItemCategory } from "@/src/services/itemService";
 import { postService, type PostWithAuthor } from "@/src/services/postService";
@@ -55,15 +56,6 @@ export default function MarketplaceScreen() {
           Connect with local vendors, stay updated on community events, and find
           what you need.
         </Text>
-        <Pressable
-          style={styles.heroButton}
-          onPress={() => {
-            setSearch("");
-            setCategory(null);
-          }}
-        >
-          <Text style={styles.heroButtonText}>EXPLORE</Text>
-        </Pressable>
       </View>
 
       {/* Bulletin preview */}
@@ -144,17 +136,19 @@ export default function MarketplaceScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Community Store</Text>
-        <Pressable onPress={() => router.push("/(shared)/notifications")}>
-          <Ionicons
-            name="notifications-outline"
-            size={22}
-            color={colors.white}
-          />
-        </Pressable>
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Community Store"
+        right={
+          <Pressable onPress={() => router.push("/(shared)/notifications")}>
+            <Ionicons
+              name="notifications-outline"
+              size={22}
+              color={colors.white}
+            />
+          </Pressable>
+        }
+      />
 
       {loading && items.length === 0 ? (
         <ActivityIndicator style={{ marginTop: 32 }} color={colors.teal} />

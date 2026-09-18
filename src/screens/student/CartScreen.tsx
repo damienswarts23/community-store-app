@@ -1,4 +1,5 @@
 import EmptyState from "@/src/components/EmptyState";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import type { CartLine } from "@/src/contexts/CartContext";
 import { useCart } from "@/src/hooks/useCart";
 import { colors } from "@/src/theme/colors";
@@ -17,15 +18,17 @@ export default function CartScreen() {
   const grandTotal = total + shipping;
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Cart</Text>
-        {lines.length > 0 && (
-          <Pressable onPress={clear} hitSlop={8}>
-            <Ionicons name="trash-outline" size={20} color={colors.white} />
-          </Pressable>
-        )}
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Cart"
+        right={
+          lines.length > 0 && (
+            <Pressable onPress={clear} hitSlop={8}>
+              <Ionicons name="trash-outline" size={20} color={colors.white} />
+            </Pressable>
+          )
+        }
+      />
 
       {lines.length === 0 ? (
         <EmptyState

@@ -1,22 +1,23 @@
 import EmptyState from "@/src/components/EmptyState";
 import OrderStatusBadge from "@/src/components/OrderStatusBadge";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { itemService } from "@/src/services/itemService";
 import {
-    orderService,
-    type VendorOrderLine,
+  orderService,
+  type VendorOrderLine,
 } from "@/src/services/orderService";
 import { colors } from "@/src/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-    ActivityIndicator,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -95,11 +96,8 @@ export default function DashboardScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Dashboard</Text>
-      </View>
-
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader title="Dashboard" />
       <ScrollView contentContainerStyle={styles.content}>
         {error && <Text style={styles.errorText}>{error}</Text>}
 

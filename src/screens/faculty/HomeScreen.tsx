@@ -1,5 +1,6 @@
 import EmptyState from "@/src/components/EmptyState";
 import PostCard from "@/src/components/PostCard";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { postService, type PostWithAuthor } from "@/src/services/postService";
 import { colors } from "@/src/theme/colors";
@@ -7,12 +8,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -40,10 +41,8 @@ export default function HomeScreen() {
   }, [load]);
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Faculty Home</Text>
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader title="Faculty Home" />
 
       <View style={styles.actionsRow}>
         <Pressable
@@ -103,12 +102,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.white },
-  header: {
-    backgroundColor: colors.teal,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
-  headerTitle: { color: colors.white, fontSize: 18, fontWeight: "700" },
   actionsRow: { flexDirection: "row", gap: 12, padding: 16 },
   actionCard: {
     flex: 1,

@@ -1,10 +1,13 @@
 import EmptyState from "@/src/components/EmptyState";
+import RatingStars from "@/src/components/RatingStars";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useCart } from "@/src/hooks/useCart";
 import { itemService, type ItemWithRating } from "@/src/services/itemService";
 import {
   vendorService,
   type VendorWithRating,
 } from "@/src/services/vendorService";
+import { colors } from "@/src/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
@@ -19,8 +22,6 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const TEAL = "#0A5C74";
 
 export default function ItemDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -84,7 +85,7 @@ export default function ItemDetailScreen() {
   if (loading) {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <ActivityIndicator style={{ marginTop: 40 }} color={TEAL} />
+        <ActivityIndicator style={{ marginTop: 40 }} color={colors.teal} />
       </SafeAreaView>
     );
   }
@@ -98,14 +99,15 @@ export default function ItemDetailScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={22} color="#fff" />
-        </Pressable>
-        <Text style={styles.headerTitle}>Item Details</Text>
-        <View style={{ width: 22 }} />
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Item Details"
+        left={
+          <Pressable onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
+          </Pressable>
+        }
+      />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.imageWrapper}>
@@ -125,9 +127,28 @@ export default function ItemDetailScreen() {
           <Text style={styles.price}>R{item.price.toFixed(2)}</Text>
         </View>
 
+        <Pressable
+          style={styles.reviewsRow}
+          onPress={() => router.push(`/(shared)/reviews/${item.item_id}`)}
+        >
+          {item.review_count > 0 ? (
+            <>
+              <RatingStars rating={item.avg_rating} size={14} />
+              <Text style={styles.reviewsText}>
+                {item.avg_rating.toFixed(1)} · {item.review_count} review
+                {item.review_count === 1 ? "" : "s"}
+              </Text>
+            </>
+          ) : (
+            <Text style={styles.reviewsText}>No reviews yet</Text>
+          )}
+          <Text style={styles.reviewsLink}>See reviews</Text>
+          <Ionicons name="chevron-forward" size={14} color={colors.teal} />
+        </Pressable>
+
         {item.tag && (
           <View style={styles.tagPill}>
-            <Ionicons name="checkmark-circle" size={13} color={TEAL} />
+            <Ionicons name="checkmark-circle" size={13} color={colors.teal} />
             <Text style={styles.tagText}>{item.tag}</Text>
           </View>
         )}
@@ -138,7 +159,7 @@ export default function ItemDetailScreen() {
         {vendor && (
           <View style={styles.vendorCard}>
             <View style={styles.vendorAvatar}>
-              <Ionicons name="person-outline" size={22} color="#9AA0A6" />
+              <Ionicons name="person-outline" size={22} color={colors.muted} />
             </View>
             <View style={{ flex: 1 }}>
               <Text style={styles.vendorName}>
@@ -146,7 +167,7 @@ export default function ItemDetailScreen() {
               </Text>
               {vendor.review_count > 0 && (
                 <View style={styles.vendorRatingRow}>
-                  <Ionicons name="star" size={12} color="#F5A623" />
+                  <Ionicons name="star" size={12} color={colors.star} />
                   <Text style={styles.vendorRatingText}>
                     {vendor.avg_rating.toFixed(1)} ({vendor.review_count}{" "}
                     reviews)
@@ -171,7 +192,7 @@ export default function ItemDetailScreen() {
           <Text style={styles.totalPrice}>R{item.price.toFixed(2)}</Text>
         </View>
         <Pressable style={styles.addButton} onPress={handleAddToCart}>
-          <Ionicons name="cart-outline" size={18} color="#fff" />
+          <Ionicons name="cart-outline" size={18} color={colors.white} />
           <Text style={styles.addButtonText}>
             {added ? "ADDED" : "ADD TO CART"}
           </Text>
@@ -182,20 +203,15 @@ export default function ItemDetailScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: "#fff" },
-  header: {
-    backgroundColor: TEAL,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-  },
-  headerTitle: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  safeArea: { flex: 1, backgroundColor: colors.white },
   scrollContent: { paddingBottom: 24 },
-  imageWrapper: { width: "100%", aspectRatio: 1.4, backgroundColor: "#E1E4E6" },
+  imageWrapper: {
+    width: "100%",
+    aspectRatio: 1.4,
+    backgroundColor: colors.border,
+  },
   image: { width: "100%", height: "100%" },
-  imagePlaceholder: { flex: 1, backgroundColor: "#E1E4E6" },
+  imagePlaceholder: { flex: 1, backgroundColor: colors.border },
   titleRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -207,34 +223,43 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 20,
     fontWeight: "700",
-    color: "#1A1A1A",
+    color: colors.dark,
     marginRight: 12,
   },
-  price: { fontSize: 18, fontWeight: "700", color: TEAL },
+  price: { fontSize: 18, fontWeight: "700", color: colors.teal },
+  reviewsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginHorizontal: 20,
+    marginTop: 8,
+  },
+  reviewsText: { fontSize: 12, color: colors.muted, marginRight: "auto" },
+  reviewsLink: { fontSize: 12, fontWeight: "700", color: colors.teal },
   tagPill: {
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
     alignSelf: "flex-start",
-    backgroundColor: "#EAF3F5",
+    backgroundColor: colors.tealLight,
     borderRadius: 4,
     paddingHorizontal: 8,
     paddingVertical: 4,
     marginHorizontal: 20,
     marginTop: 10,
   },
-  tagText: { fontSize: 11, fontWeight: "700", color: TEAL },
+  tagText: { fontSize: 11, fontWeight: "700", color: colors.teal },
   sectionTitle: {
     fontSize: 15,
     fontWeight: "700",
-    color: "#1A1A1A",
+    color: colors.dark,
     marginHorizontal: 20,
     marginTop: 20,
     marginBottom: 8,
   },
   description: {
     fontSize: 13,
-    color: "#5F6368",
+    color: colors.body,
     lineHeight: 20,
     marginHorizontal: 20,
   },
@@ -246,34 +271,34 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 12,
     borderWidth: 1,
-    borderColor: "#E1E4E6",
+    borderColor: colors.border,
     borderRadius: 8,
   },
   vendorAvatar: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#F5F7F8",
+    backgroundColor: colors.cardBg,
     alignItems: "center",
     justifyContent: "center",
   },
-  vendorName: { fontSize: 14, fontWeight: "700", color: "#1A1A1A" },
+  vendorName: { fontSize: 14, fontWeight: "700", color: colors.dark },
   vendorRatingRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
     marginTop: 2,
   },
-  vendorRatingText: { fontSize: 12, color: "#5F6368" },
+  vendorRatingText: { fontSize: 12, color: colors.body },
   contactButton: {
     borderWidth: 1,
-    borderColor: TEAL,
+    borderColor: colors.teal,
     borderRadius: 6,
     paddingHorizontal: 12,
     paddingVertical: 8,
   },
   contactButtonText: {
-    color: TEAL,
+    color: colors.teal,
     fontWeight: "700",
     fontSize: 11,
     letterSpacing: 0.5,
@@ -283,28 +308,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderTopWidth: 1,
-    borderTopColor: "#E1E4E6",
+    borderTopColor: colors.border,
     paddingHorizontal: 20,
     paddingVertical: 14,
   },
   totalLabel: {
     fontSize: 10,
-    color: "#9AA0A6",
+    color: colors.muted,
     fontWeight: "700",
     letterSpacing: 0.5,
   },
-  totalPrice: { fontSize: 18, fontWeight: "700", color: TEAL },
+  totalPrice: { fontSize: 18, fontWeight: "700", color: colors.teal },
   addButton: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-    backgroundColor: TEAL,
+    backgroundColor: colors.teal,
     borderRadius: 6,
     paddingHorizontal: 24,
     paddingVertical: 14,
   },
   addButtonText: {
-    color: "#fff",
+    color: colors.white,
     fontWeight: "700",
     fontSize: 13,
     letterSpacing: 0.5,

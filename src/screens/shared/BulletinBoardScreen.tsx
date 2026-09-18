@@ -1,4 +1,5 @@
 import EmptyState from "@/src/components/EmptyState";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { postService, type PostWithAuthor } from "@/src/services/postService";
 import { colors } from "@/src/theme/colors";
@@ -7,12 +8,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -39,10 +40,8 @@ export default function BulletinBoardScreen() {
   }, [load]);
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Bulletin Board</Text>
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader title="Bulletin Board" />
 
       {loading && posts.length === 0 ? (
         <ActivityIndicator style={{ marginTop: 32 }} color={colors.teal} />

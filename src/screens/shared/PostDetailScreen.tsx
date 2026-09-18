@@ -1,4 +1,5 @@
 import EmptyState from "@/src/components/EmptyState";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import { postService, type PostWithAuthor } from "@/src/services/postService";
 import { colors } from "@/src/theme/colors";
@@ -7,12 +8,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -66,22 +67,28 @@ export default function PostDetailScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={22} color={colors.white} />
-        </Pressable>
-        <Text style={styles.headerTitle}>Post</Text>
-        {isAuthor ? (
-          <Pressable
-            onPress={() => router.push(`/(faculty)/post/${post.post_id}/edit`)}
-          >
-            <Ionicons name="create-outline" size={20} color={colors.white} />
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Post"
+        left={
+          <Pressable onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
           </Pressable>
-        ) : (
-          <View style={{ width: 20 }} />
-        )}
-      </View>
+        }
+        right={
+          isAuthor ? (
+            <Pressable
+              onPress={() =>
+                router.push(`/(faculty)/post/${post.post_id}/edit`)
+              }
+            >
+              <Ionicons name="create-outline" size={20} color={colors.white} />
+            </Pressable>
+          ) : (
+            <View style={{ width: 20 }} />
+          )
+        }
+      />
 
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{post.title}</Text>

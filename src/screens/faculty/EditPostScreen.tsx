@@ -1,20 +1,20 @@
 import EmptyState from "@/src/components/EmptyState";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { postService } from "@/src/services/postService";
 import { colors } from "@/src/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -110,16 +110,15 @@ export default function EditPostScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={22} color={colors.white} />
-        </Pressable>
-        <Text style={styles.headerTitle}>Edit Post</Text>
-        <Pressable onPress={handleDelete}>
-          <Ionicons name="trash-outline" size={20} color={colors.white} />
-        </Pressable>
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="New Post"
+        left={
+          <Pressable onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
+          </Pressable>
+        }
+      />
 
       <KeyboardAvoidingView
         style={{ flex: 1 }}

@@ -1,7 +1,3 @@
-// TEMPORARY — hand-written to match supabase/migrations/0001_init.sql.
-// Replace with the CLI/dashboard-generated version as soon as possible so
-// this stays in sync automatically with future schema changes.
-
 export type Json =
   | string
   | number

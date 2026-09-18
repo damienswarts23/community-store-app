@@ -1,19 +1,20 @@
 import EmptyState from "@/src/components/EmptyState";
 import OrderStatusBadge from "@/src/components/OrderStatusBadge";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import {
-    orderService,
-    type VendorOrderLine,
+  orderService,
+  type VendorOrderLine,
 } from "@/src/services/orderService";
 import { colors } from "@/src/theme/colors";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-    ActivityIndicator,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -111,11 +112,8 @@ export default function IncomingOrdersScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Incoming Orders</Text>
-      </View>
-
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader title="Incoming Orders" />
       {loading && orders.length === 0 ? (
         <ActivityIndicator style={{ marginTop: 32 }} color={colors.teal} />
       ) : error ? (

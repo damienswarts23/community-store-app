@@ -1,9 +1,10 @@
 import EmptyState from "@/src/components/EmptyState";
 import RatingStars from "@/src/components/RatingStars";
+import ScreenHeader from "@/src/components/ScreenHeader";
 import { useAuth } from "@/src/hooks/useAuth";
 import {
-    reviewService,
-    type ReviewWithStudent,
+  reviewService,
+  type ReviewWithStudent,
 } from "@/src/services/reviewService";
 import { colors } from "@/src/theme/colors";
 import { formatRelativeTime } from "@/src/utils/formatRelativeTime";
@@ -11,13 +12,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -81,14 +82,15 @@ export default function ReviewListScreen() {
   const canReview = role === "student" && !alreadyReviewed;
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top"]}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={22} color={colors.white} />
-        </Pressable>
-        <Text style={styles.headerTitle}>Reviews</Text>
-        <View style={{ width: 22 }} />
-      </View>
+    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+      <ScreenHeader
+        title="Reviews"
+        left={
+          <Pressable onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color={colors.white} />
+          </Pressable>
+        }
+      />
 
       {loading ? (
         <ActivityIndicator style={{ marginTop: 32 }} color={colors.teal} />
@@ -166,15 +168,6 @@ export default function ReviewListScreen() {
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.white },
-  header: {
-    backgroundColor: colors.teal,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-  },
-  headerTitle: { color: colors.white, fontSize: 16, fontWeight: "700" },
   list: { padding: 16, gap: 12 },
   formCard: {
     borderWidth: 1,

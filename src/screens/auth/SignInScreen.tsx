@@ -46,7 +46,7 @@ export default function SignInScreen() {
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.title}>Community Store</Text>
+          <Text style={styles.title}>Campus Connect</Text>
           <Text style={styles.subtitle}>
             Your academic marketplace for shared resources and community
             exchange.
@@ -69,7 +69,7 @@ export default function SignInScreen() {
           <ThemedTextInput
             icon="mail-outline"
             style={styles.inputSpacing}
-            placeholder="student@mycput.ac.za"
+            placeholder="email@mycput.ac.za"
             keyboardType="email-address"
             onChangeText={setEmail}
             value={email}
